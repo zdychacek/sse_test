@@ -55,7 +55,8 @@ module.exports = function (grunt) {
 			},
 			all: [
 				'**/*.js',
-				'!node_modules/**/*.js'
+				'!node_modules/**/*.js',
+				'!static/js/lib/**/*.js'
 			]
 		},
 		concurrent: {

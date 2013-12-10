@@ -1,0 +1,17 @@
+extends layout
+block body
+	h1 Nová zprava
+
+	form
+		label
+			| Text:
+			textarea#text(type="text")
+
+		p
+			input(type="submit", value="Odeslat")
+
+		p
+			a(href="/") Seznam zpráv
+
+	script(src="/static/js/app/EventStreamListener.js")
+	script(src="/static/js/app/newMessage.js")

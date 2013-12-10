@@ -1,0 +1,11 @@
+extends layout
+block body
+	h1 Nové zprávy
+
+	ul#message-list
+
+	p
+		a(href="/new-message") Nová zpráva
+
+	script(src="/static/js/app/EventStreamListener.js")
+	script(src="/static/js/app/messagesList.js")
