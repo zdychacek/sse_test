@@ -1,0 +1,28 @@
+{
+  "name": "sse_test",
+  "version": "0.0.0",
+  "description": "sse_test ========",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/zdychacek/sse_test.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/zdychacek/sse_test/issues"
+  },
+  "homepage": "https://github.com/zdychacek/sse_test",
+  "dependencies": {
+    "express": "~3.4.6",
+    "jade": "~0.35.0"
+  },
+  "devDependencies": {
+    "matchdep": "~0.3.0",
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2",
+    "grunt-nodemon": "~0.1.2",
+    "grunt-concurrent": "~0.4.2",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
