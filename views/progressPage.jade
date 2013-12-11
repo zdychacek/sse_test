@@ -1,0 +1,13 @@
+extends layout
+block body
+	h1 Progress
+
+	button#start-task(style="display:none") Spustit
+
+	div#progress-bar(style="display:none;border:1px solid #ccc; width:300px; height:20px; overflow:auto; background:#eee;")
+		div.value(style="background-color: rgb(0, 119, 204);width:0%;height: 100%;")
+
+	div#status
+
+	script(src="/static/js/app/EventStreamListener.js")
+	script(src="/static/js/app/progressPage.js")

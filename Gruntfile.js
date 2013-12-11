@@ -38,7 +38,7 @@ module.exports = function (grunt) {
 				'regexp': true,
 				'undef': true,
 				'strict': true,
-				'smarttabs': true,
+				//'smarttabs': true,
 				'globals': {
 					'jQuery': true,
 					'angular': true,
@@ -51,7 +51,9 @@ module.exports = function (grunt) {
 				'-W116': true,
 				'-W030': true,
 				// W093: Did you mean to return a conditional instead of an assignment?
-				'-W093': true
+				'-W093': true,
+				// allowed mixed tabs and spaces
+				'-W099': true
 			},
 			all: [
 				'**/*.js',

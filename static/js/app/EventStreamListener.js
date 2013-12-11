@@ -1,7 +1,5 @@
 /**
- * @class EventStreamListener
- * @description Implementace wrapperu EventSource
- * @see http://www.html5rocks.com/en/tutorials/eventsource/basics/
+
  */
 ;(function (document) {
 	'use strict';
@@ -10,6 +8,9 @@
 
 	/**
 	 * Konstruktor EventStreamListener
+	 * @class EventStreamListener
+	 * @description Implementace wrapperu EventSource
+	 * @see http://www.html5rocks.com/en/tutorials/eventsource/basics/
 	 * @param {String} url URL adresa streamu udalosti.
 	 */
 	function EventStreamListener (url) {
