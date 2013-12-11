@@ -3,6 +3,9 @@
 var id = -1,
 	messages = [];
 
+/**
+ * Model zpravy.
+ */
 function Message (data) {
 	data || (data = {});
 

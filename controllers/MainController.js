@@ -4,34 +4,42 @@ var EventStream = require('../lib/EventStream'),
 	Message = require('../models/Message');
 
 module.exports.addRoutes = function (app) {
+	// vytvori testovaci data
 	Message.generateTestMessages(10);
 
-	// view methods --------------------------------------------------
+	// render stranky se seznamem zprav	
   app.get('/', function (req, res) {
 		res.render('messagesList');
 	});
 
+  // render stranky s formularem pro vytvoreni nove zpravy
 	app.get('/new-message', function (req, res) {
 		res.render('newMessage');
 	});
 
-	// ajax methods	--------------------------------------------------
-	var stream = new EventStream(app, '/stream');
-
-	app.get('/api/get-all-messages', function (req, res) {
-		var messages = Message.getAll();
-
-		res.json(messages);
+	// vytvoreni event streamu
+	var stream = new EventStream(app, {
+		url: '/stream'
 	});
 
-	app.post('/api/new-message', function (req, res) {
-		var message = new Message(req.body);
+	app.namespace('/api', function () {
+		// vraci seznam vsech zprav
+		app.get('/get-all-messages', function (req, res) {
+			var messages = Message.getAll();
 
-		message.save(function (savedMessage) {
-			// zapisu do streamu
-			stream.write(savedMessage, 'new-message');
+			res.json(messages);
+		});
 
-			res.json(savedMessage);
+		// vytvori novou zpravu
+		app.post('/new-message', function (req, res) {
+			var message = new Message(req.body);
+
+			message.save(function (savedMessage) {
+				// zapisu do streamu informaci o tom, ze byla vytvorena nova zprava
+				stream.write(savedMessage, 'new-message');
+
+				res.json(savedMessage);
+			});
 		});
 	});
 };

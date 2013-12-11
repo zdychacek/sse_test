@@ -1,5 +1,9 @@
-(function ($, EventStreamListener) {
+;(function ($, EventStreamListener) {
 	'use strict';
+	
+	// vytvoreni posluchace udalosti
+	var stream = new EventStreamListener('/stream'),
+		messagesList = document.getElementById('message-list');
 
 	function addMessageToList (message) {
 		var msgEl = document.createElement('li');
@@ -8,10 +12,11 @@
 		$(messagesList).prepend(msgEl);
 	}
 
-	var stream = new EventStreamListener('/stream'),
-		messagesList = document.getElementById('message-list');
+	function removeStreamListener () {
+		stream.off(handlerDescriptor);
+	}
 
-	stream.on('new-message', function (message, event) {
+	var handlerDescriptor = stream.on('new-message', function (message, event) {
 		addMessageToList(message);
 	});
 
@@ -25,6 +30,8 @@
 
 	// stahnu seznam zprav
 	$.getJSON('/api/get-all-messages', function (messages) {
-		messages.forEach(addMessageToList);
+		$.each(messages, function (i, message) {
+			addMessageToList(message);
+		});
 	});
 })(jQuery, window.EventStreamListener);

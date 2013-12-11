@@ -1,5 +1,7 @@
 'use strict';
 
+require('express-namespace');
+
 var express = require('express'),
 		app = express(),
 		secret = 'qwertz',
@@ -28,7 +30,7 @@ app.configure('production', function(){
 	app.use(express.errorHandler()); 
 });
 
-// registrace rout
+// registrace routes
 require('./controllers/MainController').addRoutes(app);
  
 app.listen(PORT);
