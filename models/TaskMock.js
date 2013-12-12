@@ -1,5 +1,7 @@
 'use strict';
 
+var PubSub = require('../lib/PubSub');
+
 /**
  * Mock vypocetne narocne ukolu.
  */
@@ -7,7 +9,7 @@ function TaskMock () {
 	this._progress = 0;
 	this._stepTime = 1000;
 	this._isRunning = false;
-	this._onUpdateCallbacks = [];
+	this._pubSub = new PubSub();
 }
 
 /**
@@ -18,7 +20,7 @@ TaskMock.prototype.compute = function () {
 
 	task._progress = 0;
 	task._isRunning = true;
-	task._fireOnUpdateEvent(task);
+	task._pubSub.publish('update', task);
 
 	function _do () {
 		task._progress += 10;
@@ -27,10 +29,10 @@ TaskMock.prototype.compute = function () {
 
 		if (isComplete) {
 			task._isRunning = false;
-			task._fireOnUpdateEvent(task);
+			task._pubSub.publish('update', task);
 		}
 		else {
-			task._fireOnUpdateEvent(task);
+			task._pubSub.publish('update', task);
 			setTimeout(_do, task._stepTime);
 		}
 	}
@@ -43,20 +45,7 @@ TaskMock.prototype.compute = function () {
  * @param  {Function} callback Funkce, ktera bude volana pri teto udalosti.
  */
 TaskMock.prototype.onUpdate = function (callback) {
-	if (typeof callback === 'function') {
-		this._onUpdateCallbacks.push(callback);
-	}
-};
-
-/**
- * Spousti zaregistrovane posluchace
- * @private
- * @param  {TaskMock} task Instance spusteneho vypoctu.
- */
-TaskMock.prototype._fireOnUpdateEvent = function (task) {
-	this._onUpdateCallbacks.forEach(function (callback) {
-		callback(task);
-	});
+	this._pubSub.subscribe('update', callback);
 };
 
 /**

@@ -23,7 +23,7 @@
 
 	/**
 	 * Registruje posluchace nad urcitym typem udalosti pokud je specifikovana konkretni udalost, jinak nasloucha vsem udalosti
-	 * @return {Array} Deskriptor posluchace - kombinace typu udalosti a reference na navesenou funkci
+	 * @return {Array} Deskriptor posluchace - kombinace typu udalosti a reference na navesenou funkci.
 	 */
 	EventStreamListener.prototype.on = function (/* event, callback */) {
 		// posledni argument je callback
@@ -61,7 +61,7 @@
 	/**
 	 * Rusi registraci posluchace.
 	 * @see EventStreamListener#on
-	 * @param  {Array} handlerDescriptor Deskriptor posluchace
+	 * @param  {Array} handlerDescriptor Deskriptor posluchace.
 	 */
 	EventStreamListener.prototype.off = function (handlerDescriptor) {
 		this._eventSource.removeEventListener.apply(this._eventSource, handlerDescriptor);
@@ -77,14 +77,18 @@
 	/**
 	 * Registrace posluchace udalosti pri otevreni spojeni.
 	 * @param  {Function} callback Funkce, ktera se zavola pri navazani spojeni.
+	 * @param  {Array} handlerDescriptor Deskriptor posluchace.
 	 */
 	EventStreamListener.prototype.onOpen = function (callback) {
 		this._eventSource.addEventListener('open', callback);
+
+		return ['open', callback];
 	};
 
 	/**
 	 * Registrace posluchace udalosti pri chybe.
 	 * @param  {Function} callback Funkce, ktera se zavola pri preruseni spojeni.
+	 * @param  {Array} handlerDescriptor Deskriptor posluchace.
 	 */
 	EventStreamListener.prototype.onError = function (callback) {
 		this._eventSource.addEventListener('error', function (event) {
@@ -92,6 +96,8 @@
 				callback(event);
 			}
 		});
+
+		return ['error', callback];
 	};
 
 	// API export

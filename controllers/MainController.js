@@ -35,7 +35,7 @@ module.exports.addRoutes = function (app) {
 	// mock casove narocneho tasku
 	var task = new Task();
 	
-	task.onUpdate(function (task) {
+	task.onUpdate(function (event, task) {
 		stream.write(task.getStatus(), 'task-progress-changed');
 	});
 
